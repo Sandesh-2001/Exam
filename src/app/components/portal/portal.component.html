@@ -1,0 +1,86 @@
+<div class="container text-center mt-5">
+  <div class="card" *ngIf="!isFinished">
+    <div class="row">
+      <div class="test-name col-md-12 d-flex justify-content-between px-">
+        <h3>
+          {{ testName }}
+        </h3>
+        <h5> {{ timer }}</h5>
+      </div>
+      <div class="test-question col-md-12">
+        <div class="col-md-12 text-start ms-3 my-3">
+          {{ this.allQuestions[currentQuestion]?.questionText }}
+        </div>
+        <div class="col-md-12">
+          <div
+            class="mb-3 ms-3 d-flex justify-content-start"
+            *ngFor="
+              let option of this.allQuestions[currentQuestion]?.options;
+              let index = index
+            "
+          >
+            <div
+              id="checkbox-button"
+              *ngIf="this.allQuestions[currentQuestion].type"
+            >
+              <input
+                [checked]="
+                  this.allQuestions[currentQuestion].selectedAns.includes(index)
+                "
+                type="checkbox"
+                class="form-check-input"
+                [id]="index + 'ans'"
+                (click)="ansSelected(option, index)"
+              />
+              <label class="form-check-label mx-3" [for]="index + 'ans'">
+                {{ option }}</label
+              >
+            </div>
+            <div
+              id="radio button"
+              *ngIf="!this.allQuestions[currentQuestion].type"
+            >
+              <input
+                [checked]="
+                  this.allQuestions[currentQuestion].selectedAns === index
+                "
+                type="radio"
+                class="form-radio-input"
+                [id]="index + 'ans'"
+                (click)="ansSelected(option, index)"
+              />
+              <label class="form-radio-label mx-3" [for]="index + 'ans'">
+                {{ option }}</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="test-action col-md-12 text-start mt-4">
+        <button class="btn btn-danger" (click)="previous()">Previous</button>
+        <button class="btn btn-success" (click)="next()">Next</button>
+        <button class="btn btn-danger" (click)="finish()">Finish</button>
+      </div>
+    </div>
+  </div>
+  <div class="border border-danger rounded shadow p-4" *ngIf="isFinished">
+    <h1>{{ testName }}</h1>
+    <p>
+      <span>Correct Answers ::</span><span>{{ finishedObj.correct }}</span>
+    </p>
+    <p>
+      <span>Wrong Answers ::</span><span>{{ finishedObj.correct }}</span>
+    </p>
+    <p>
+      <span>Total Questions ::</span><span>{{ finishedObj.total }}</span>
+    </p>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="newTest()"
+      routerLink="/test-list"
+    >
+      Start a New Test
+    </button>
+  </div>
+</div>

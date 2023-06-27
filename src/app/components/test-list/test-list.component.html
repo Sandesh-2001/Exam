@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <tr>
+          <th>Sr.no</th>
+          <th>Name</th>
+          <th>No. of Questions</th>
+          <th>Time</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let test of allTests; let index = index">
+          <td>{{ index + 1 }}</td>
+          <td>{{ test?.name }}</td>
+          <td>{{ test?.questions.length }}</td>
+          <td>10 min</td>
+          <td>
+            <button
+              class="btn btn-warning"
+              routerLink="/portal"
+              [queryParams]="{ id: test?._id }"
+            >
+              Start
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
